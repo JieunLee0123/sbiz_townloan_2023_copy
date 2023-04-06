@@ -94,7 +94,7 @@ export default {
         pageCnt: pageCnt
       }
 
-      this.$http.post('/api/movies', data)
+      this.$http.post('/api/localCreator', data)
         .then(res => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(res.data, 'text/html');
