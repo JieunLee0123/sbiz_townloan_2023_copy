@@ -1,17 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const movies = require('../movies.json');
+const axios = require('axios')
 
-router.get('/', function (req, res, next) {
- res.send(movies)
-});
+const url = 'https://www.k-startup.go.kr/web/module/getLocalCreatorList.ajax'
 
-router.get('/:id', function (req, res, next) {
- const id = parseInt(req.params.id, 10)
- const movie = movies.find(function (movie) {
-  return movie.id === id
- });
- res.send(movie)
+router.post('/', function (req, res, next) {
+  const { reginCd, pageCnt } = req.body
+
+  const headers = {
+    "headers": 'application/x-www-form-urlencoded'
+  }  
+
+  const getData = async (pageCnt) => {
+    let dataStr = ''
+
+    for (let i = 1; i <= pageCnt; i++){
+      const data = new URLSearchParams({
+        page: i,
+        reginCd: reginCd,
+        korYn: 'Y',
+        useYn: 'Y',
+        IdntrpYn: 'Y'
+      })
+      
+      await axios
+      .post(url, data, headers)
+      .then((response) => {
+        dataStr += response.data
+        if (i === pageCnt) {
+          res.send(dataStr)
+        }
+      })
+      .catch((err) => {
+        res.send(err)
+      })
+    }
+  }
+  
+  getData(pageCnt)
 });
 
 module.exports = router;

@@ -1,4 +1,3 @@
-const theme = require("tailwindcss/defaultTheme");
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
@@ -13,13 +12,6 @@ module.exports = {
       xl: '1200px',
       '2xl': '1440px',
     },
-    colors: {
-      'main': '#FFE462',
-      'main-light': '#FFEC9B',
-      'sub': '#62FFBD',
-      'sub-light': '#F2FFE0',
-      'black': '#212121',
-    },
     container: {
       center: true,
       padding: {
@@ -30,15 +22,7 @@ module.exports = {
         '2xl': '7rem',
       },
     },
-    spacing: {
-      'section': '100px',
-      'li': '8px',
-    },
-    extend: { // 여러 스타일 설정
-      fontFamily: {
-        sans: ['pretendard', ...theme.fontFamily.sans],
-      }
-    },
+
   },
   variants: {
     extend: {},
